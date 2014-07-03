@@ -4,50 +4,178 @@
     <meta charset="UTF-8">
     <title>Main Index</title>
     <script>
+        /*
+        * Author: Jyotika Banerjee
+        * Library to use restCountries API directly.
+        *
+        * */
+
+
+
 
         var restCountriesJB = {
 
-                countries: {
+                     getBaseURL: function(){
+                                var url = 'http://restcountries.eu/rest/v1/';
+                                function fn(){
+                                            return url;
+                                     }
+                                return fn();
+                           },
 
-                        getCountryNames = function(callback){},
+                     namespace_init: function(str){
+                          //Will accept a string of the organization structure.
+                          //This is primarily to provide the ability to extend the library
 
-                        region: {
-                                    region_cache: [],
-                                    getCountriesByRegion = function(region){}
+                           },
+
+                     ajax: function(url, callback){
+                              var xhr = new XMLHttpRequest();
+                              xhr.open('GET', url);
+                              xhr.onreadystatechange = function () {
+                                  if (xhr.readyState === 4 && xhr.status === 200) {
+                                      console.log('done');
+                                      var data = JSON.parse(xhr.responseText);
+                                      callback(data);
+                                }
+                           }
+                        },
+
+
+                     allcountries: {
+
+                               getAllCountryNames: function(callback){
+                               var url = this.getBaseURL();
+                               this.ajax(url, function(data){
+                               var countries = data.map(function(elem){
+                                        return elem.name;
+                                });
+
+                                callback(countries);
+                           });
+                         },
+
+                                getAllCountryCapitals: function(callback){
+                                    var url = this.getBaseURL();
+                                    this.ajax(url, function(data){
+                                        var CountryCapital = data.map(function (elem) {
+
+                                            return { country_name: elem.name, capital: elem.capital};
+
+                                        });
+                                        callback(CountryCapital);
+                                    });
+
+                                }
+
+                      },
+
+
+
+
+                        country: {
+
+
+                            capital_city: {
+                                //capital_cache: [],
+                                getCountryByCapital: function(capital){
+                                    var url = this.getBaseURL()+"capital/"+capital;
+                                    this.ajax(url, function (data) {
+                                        var country = data[0].name;
+                                        console.log(country);
+                                        callback(country);
+                                    });
+                                }
+                            },
+
+                            country_code: {
+                                //cc_cache: [],
+                                    getCountryByCountryCode: function(cc){
+                                        var url = this.getBaseURL()+"alpha/"+cc;
+                                        this.ajax(url, function (data) {
+                                            var country = data.name;
+                                            console.log(country);
+                                            callback(country);
+                                        });
+                                 }
+
+                             },
+
+                            calling_code: {
+
+                                //calling_code_cache = [],
+                                    getCountryByCallingCode: function(callc){
+                                        var url = this.getBaseURL()+"callingcode/"+callc;
+                                        this.ajax(url, function (data) {
+                                            var country
+                                            country = data[0].name;
+                                            //console.log(country);
+                                            callback(country);
+                                        });
+                                    }
+                             },
+
+                            country_name: {
+                                //cn_cache: [],
+                                    getCountryByCountryName: function(cname){
+                                        var url = this.getBaseURL()+"name/"+cname;
+                                        this.ajax(url, function (data) {
+                                            var country = data[0].name;
+                                            // console.log(data);
+                                            callback(country);
+                                        });
+                                    }
+                                }
+                        },
+
+
+
+                      countries: {
+
+                                  region: {
+
+                                        getCountriesByRegion: function (region) {
+                                                 var url = this.getBaseURL()+"region/"+region;
+                                                 this.ajax(url, function (data) {
+                                                 var countries = data.map(function (elem) {
+                                                       return elem.name;
+                                                   });
+
+                                                  callback(countries);
+                                                });
+                                          }
                                 },
 
-                        subregion:{
-                                     subregion_cache: [],
-                                     getCountriesBySubregion = function(subregion){}
+                                  subregion:{
+
+                                       getCountriesBySubregion: function(subregion){
+                                         var url = this.getBaseURL()+"region/"+subregion;
+                                         this.ajax(url, function (data) {
+                                             var countries = data.map(function (elem) {
+                                                 return elem.name;
+                                             });
+
+                                             callback(countries);
+                                         });
+
+                                     }
                                 },
 
-                         capital_city: {
-                                    capital_cache: [],
-                                    getCountryByCapital = function(capital){}
-                                },
-
-                         country_code: {
-                                    cc_cache: [],
-                                    getCountriesByRegion = function(cc){}
-                                },
-
-                          country_name: {
-                                    cn_cache: [],
-                                    getCountryByCountryName = function(cn){}
-                                },
 
                            language: {
-                                       language_cache: [],
+                                       //language_cache: [],
                                        getCountriesByLanguage= function(lang){},
                                        getLanguages = function (country_name) {}
                                    },
 
                            currency: {
-                                        currency_cache: [],
-                                        getCountriesByCurrency= function(curr){},
-                                        getCurrency= function(country_name){},
-                                        currencyConvert= function(country1,country2,amount){}
-                                   }
+                                        //currency_cache: [],
+                                        getCountriesByCurrency: function(curr){}
+                                        //getCurrency: function(country_name){},
+                                       // currencyConvert: function(country1,country2,amount){}
+                                   },
+
+
                 }
 
 
