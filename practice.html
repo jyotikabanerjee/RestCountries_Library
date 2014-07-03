@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+
+        document.addEventListener('DOMContentLoaded',function(){
+
+
+             function getBaseURL(){
+                var url = 'http://restcountries.eu/rest/v1/';
+                function fn(){
+                    return url;
+                }
+                return fn();
+            }
+
+
+            function ajax(url,callback){
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', url);
+                xhr.onreadystatechange = function (){
+                    if ( xhr.readyState === 4 && xhr.status === 200 ) {
+                        console.log('done');
+
+                        var data = JSON.parse(xhr.responseText);
+
+                       /* getCountryDetail.cache[country_name] = data[0];
+                        fn(getCountryDetail.cache[country_name]);*/
+
+                        callback(data);
+                    }
+                };
+                xhr.send();
+            }
+
+
+
+
+              function getAllCountryNames(callback){
+                var url = getBaseURL();
+                  console.log(arguments);
+                ajax(url, function(data){
+                    var countries = data.map(function(elem){
+                        return elem.name;
+                    });
+
+
+                        callback(countries);
+
+
+                });
+            }
+
+
+
+
+
+            function getCountriesByRegion(region,callback){
+            var url = getBaseURL()+"region/"+region;
+            ajax(url, function (data) {
+                var countries = data.map(function (elem) {
+                    return elem.name;
+                });
+
+                callback(countries);
+            });
+        }
+
+
+            function getCountriesByCurrency(curr,callback){
+                var url = getBaseURL()+"region/"+region;
+                ajax(url, function (data) {
+                    var countries = data.map(function (elem) {
+                        return elem.name;
+                    });
+
+                    callback(countries);
+                });
+            }
+
+
+
+
+            function getCountryByCapital(capital, callback){
+                var url = getBaseURL()+"capital/"+capital;
+                  ajax(url, function (data) {
+                    var country = data[0].name;
+
+                      console.log(data);
+
+                    callback(country);
+                });
+
+            }
+
+
+            function getCountryByCountryCode(cc, callback){
+                var url = getBaseURL()+"alpha/"+cc;
+                ajax(url, function (data) {
+                    var country = data.name;
+                    console.log(country);
+                    callback(country);
+                });
+            }
+
+
+            function getCountryByCallingCode(callc, callback){
+                var url = getBaseURL()+"callingcode/"+callc;
+                ajax(url, function (data) {
+                    var country
+                            country = data[0].name;
+                            //console.log(country);
+                    callback(country);
+                });
+            }
+
+            function getCountryByCountryName(cname, callback){
+                var url = getBaseURL()+"name/"+cname;
+                ajax(url, function (data) {
+                   var country = data[0].name;
+                   // console.log(data);
+                    callback(country);
+                });
+
+            }
+
+
+
+            function getAllCountryCapitals(callback){
+                var url = getBaseURL();
+                    ajax(url, function(data){
+                    var CountryCapital = data.map(function (elem) {
+
+                        return { country_name: elem.name, capital: elem.capital}
+
+                    }) ;
+
+                        //console.log(CountryCapital);
+                    callback(CountryCapital);
+                })
+
+            }
+
+
+
+
+
+            console.log("Hello");
+
+
+          /*  getAllCountryNames(function(elem){
+                console.log(elem);
+
+            });*/
+
+            /*getCountriesByRegion('asia',function(elem){
+                console.log(elem);
+
+            });*/
+
+           /* getCountryByCapital('oslo', function(elem){
+                console.log(elem);
+
+            });*/
+
+           /* getAllCountryCapitals(function(elem){
+                console.log(elem);
+
+            });*/
+
+
+           /* getCountryByCountryCode('co', function(elem){
+                console.log(elem);
+
+            });*/
+
+           /* getCountryByCountryName('Bangladesh', function(elem){
+                console.log(elem);
+
+            });*/
+
+            getCountryByCallingCode(7, function(elem) {
+                console.log(elem);
+            });
+        });
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
