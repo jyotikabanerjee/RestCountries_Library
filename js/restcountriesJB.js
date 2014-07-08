@@ -9,10 +9,9 @@
 
 
 var restCountriesJB = {
-
-    getBaseURL: function(){
+    getBaseURL: function () {
         var url = 'http://restcountries.eu/rest/v1/';
-        function fn(){
+        function fn() {
             return url;
         }
         return fn();
