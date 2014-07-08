@@ -1,0 +1,24 @@
+html, body{
+    font:300 1em 'helvetica neue';
+    height: 100%;
+    width: 100%;
+}
+
+#base{
+    font:300 1em 'helvetica neue';
+    width: 500px;
+    margin: 0 auto;
+
+}
+
+#continent{
+    font:300 1em 'helvetica neue';
+    width: 250px;
+    margin: 0 auto;
+}
+
+li{
+  font:300 1em 'helvetica neue';
+  list-style-type: none;
+}
+
