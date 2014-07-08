@@ -39,14 +39,15 @@
                                       callback(data);
                                 }
                            }
+                         xhr.send();
                         },
 
 
                      allcountries: {
 
                                getAllCountryNames: function(callback){
-                               var url = this.getBaseURL();
-                               this.ajax(url, function(data){
+                               var url = restCountriesJB.getBaseURL();
+                               restCountriesJB.ajax(url, function(data){
                                var countries = data.map(function(elem){
                                         return elem.name;
                                 });
@@ -56,8 +57,8 @@
                          },
 
                                 getAllCountryCapitals: function(callback){
-                                    var url = this.getBaseURL();
-                                    this.ajax(url, function(data){
+                                    var url = restCountriesJB.getBaseURL();
+                                    restCountriesJB.ajax(url, function(data){
                                         var CountryCapital = data.map(function (elem) {
 
                                             return { country_name: elem.name, capital: elem.capital};
@@ -79,8 +80,8 @@
                             capital_city: {
                                 //capital_cache: [],
                                 getCountryByCapital: function(capital){
-                                    var url = this.getBaseURL()+"capital/"+capital;
-                                    this.ajax(url, function (data) {
+                                    var url = restCountriesJB.getBaseURL()+"capital/"+capital;
+                                    restCountriesJB.ajax(url, function (data) {
                                         var country = data[0].name;
                                         console.log(country);
                                         callback(country);
@@ -91,8 +92,8 @@
                             country_code: {
                                 //cc_cache: [],
                                     getCountryByCountryCode: function(cc){
-                                        var url = this.getBaseURL()+"alpha/"+cc;
-                                        this.ajax(url, function (data) {
+                                        var url = restCountriesJB.getBaseURL()+"alpha/"+cc;
+                                        restCountriesJB.ajax(url, function (data) {
                                             var country = data.name;
                                             console.log(country);
                                             callback(country);
@@ -105,8 +106,8 @@
 
                                 //calling_code_cache = [],
                                     getCountryByCallingCode: function(callc){
-                                        var url = this.getBaseURL()+"callingcode/"+callc;
-                                        this.ajax(url, function (data) {
+                                        var url = restCountriesJB.getBaseURL()+"callingcode/"+callc;
+                                        restCountriesJB.ajax(url, function (data) {
                                             var country
                                             country = data[0].name;
                                             //console.log(country);
@@ -118,8 +119,8 @@
                             country_name: {
                                 //cn_cache: [],
                                     getCountryByCountryName: function(cname){
-                                        var url = this.getBaseURL()+"name/"+cname;
-                                        this.ajax(url, function (data) {
+                                        var url = restCountriesJB.getBaseURL()+"name/"+cname;
+                                        restCountriesJB.ajax(url, function (data) {
                                             var country = data[0].name;
                                             // console.log(data);
                                             callback(country);
@@ -135,8 +136,8 @@
                                   region: {
 
                                         getCountriesByRegion: function (region) {
-                                                 var url = this.getBaseURL()+"region/"+region;
-                                                 this.ajax(url, function (data) {
+                                                 var url = restCountriesJB.getBaseURL()+"region/"+region;
+                                                 restCountriesJB.ajax(url, function (data) {
                                                  var countries = data.map(function (elem) {
                                                        return elem.name;
                                                    });
@@ -149,8 +150,8 @@
                                   subregion:{
 
                                        getCountriesBySubregion: function(subregion){
-                                         var url = this.getBaseURL()+"region/"+subregion;
-                                         this.ajax(url, function (data) {
+                                         var url = restCountriesJB.getBaseURL()+"region/"+subregion;
+                                           restCountriesJB.ajax(url, function (data) {
                                              var countries = data.map(function (elem) {
                                                  return elem.name;
                                              });
@@ -173,7 +174,7 @@
                                         getCountriesByCurrency: function(curr){}
                                         //getCurrency: function(country_name){},
                                        // currencyConvert: function(country1,country2,amount){}
-                                   },
+                                   }
 
 
                 }
